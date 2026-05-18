@@ -2262,7 +2262,7 @@ async function handleAuth(event) {
     const mode = form.dataset.mode || 'login';
 
     const email = document.getElementById("email").value;
-    const password = form.querySelector('input[type="password"]').value;
+    const password = document.getElementById("password").value;
     const usernameInput = document.getElementById("username");
 
     // Helper to reset button state on failure
