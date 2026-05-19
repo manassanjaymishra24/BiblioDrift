@@ -72,26 +72,48 @@ function setTheme(themeName) {
         document.documentElement.style.setProperty(key, theme[key]);
     });
 
-    // Set data attribute on html for theme-specific CSS selectors (consistent with night mode)
+    // Set data attribute on html for theme-specific CSS selectors
     document.documentElement.setAttribute('data-theme', themeName);
     
-    // Persist choice to localStorage
-    localStorage.setItem("bibliodrift_theme", themeName);
+    // Store mood theme separately so we don't break the light/dark mode preference!
+    localStorage.setItem("bibliodrift_mood", themeName);
 }
 
 /**
- * Restores the theme from localStorage or defaults to 'rainy'.
+ * Clears the mood theme and restores the original Light/Night mode.
+ */
+function clearTheme() {
+    // Remove mood theme variables
+    const sampleTheme = THEMES["rainy"];
+    Object.keys(sampleTheme).forEach(key => {
+        document.documentElement.style.removeProperty(key);
+    });
+
+    localStorage.removeItem("bibliodrift_mood");
+
+    // Restore original light/night theme
+    const originalTheme = localStorage.getItem('bibliodrift_theme');
+    if (originalTheme === 'night' || originalTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'night');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+    }
+}
+
+/**
+ * Restores the theme from localStorage.
  */
 function restoreTheme() {
-    const savedTheme = localStorage.getItem("bibliodrift_theme");
-    if (savedTheme) {
-        setTheme(savedTheme);
+    const savedMood = localStorage.getItem("bibliodrift_mood");
+    if (savedMood) {
+        setTheme(savedMood);
     } else {
-        setTheme("rainy");
+        clearTheme();
     }
 }
 
 // Ensure functions are globally accessible
 window.THEMES = THEMES;
 window.setTheme = setTheme;
+window.clearTheme = clearTheme;
 window.restoreTheme = restoreTheme;

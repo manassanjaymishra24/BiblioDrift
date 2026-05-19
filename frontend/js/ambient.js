@@ -102,6 +102,7 @@ class AmbientManager {
                         }
                     });
             } else {
+                if (typeof clearTheme === 'function') clearTheme();
                 this.rainAudio.pause();
             }
         });
@@ -117,6 +118,7 @@ class AmbientManager {
                         console.error("Fire audio failed:", e);
                     });
             } else {
+                if (typeof clearTheme === 'function') clearTheme();
                 this.fireAudio.pause();
             }
         });
@@ -135,6 +137,7 @@ class AmbientManager {
                         }
                     });
             } else {
+                if (typeof clearTheme === 'function') clearTheme();
                 this.oceanAudio.pause();
             }
         });
@@ -153,6 +156,7 @@ class AmbientManager {
                         }
                     });
             } else {
+                if (typeof clearTheme === 'function') clearTheme();
                 this.stormAudio.pause();
             }
         });
