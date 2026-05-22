@@ -1987,38 +1987,37 @@ spine.addEventListener('blur', () => this.hideTooltip());
             if (window.renderer && typeof window.renderer.fetchAIVibe === 'function') {
                 window.renderer.fetchAIVibe(book.title, book.author, book.description || "").then(vibe => {
                     if (vibe) {
-                    const cleanVibe = vibe.replace(/^(Bookseller's Note:|Note:|Recommendation:)\s*/i, "");
+                        const cleanVibe = vibe.replace(/^(Bookseller's Note:|Note:|Recommendation:)\s*/i, "");
 
-                    const primaryMood = book.moods?.[0];
+                        const primaryMood = book.moods?.[0];
 
-                    aiNoteEl.innerHTML = `
-                        <div class="bookseller-note-card fade-in-note">
+                        aiNoteEl.innerHTML = `
+                            <div class="bookseller-note-card fade-in-note">
 
-                            <div class="bookseller-note-header">
-                                <span class="bookseller-note-label">
-                                    ✨ Bookseller's Note
-                                </span>
-
-                                ${primaryMood ? `
-                                    <span class="immersive-mood-badge">
-                                        <i class="fa-solid ${this.getMoodIcon(primaryMood)}"></i>
-                                        ${primaryMood}
+                                <div class="bookseller-note-header">
+                                    <span class="bookseller-note-label">
+                                        ✨ Bookseller's Note
                                     </span>
-                                ` : ''}
+
+                                    ${primaryMood ? `
+                                        <span class="immersive-mood-badge">
+                                            <i class="fa-solid ${this.getMoodIcon(primaryMood)}"></i>
+                                            ${primaryMood}
+                                        </span>
+                                    ` : ''}
+                                </div>
+
+                                <p class="bookseller-note-text">
+                                    "${cleanVibe}"
+                                </p>
+
+                                <div class="bookseller-context-hint">
+                                    Why this book was shown to you
+                                </div>
+
                             </div>
-
-                            <p class="bookseller-note-text">
-                                "${cleanVibe}"
-                            </p>
-
-                            <div class="bookseller-context-hint">
-                                Why this book was shown to you
-                            </div>
-
-                        </div>
-                    `;
-                    }
-                     else {
+                        `;
+                    } else {
                         aiNoteEl.innerHTML = `
                             <div class="bookseller-note-card fade-in-note">
                                 <p class="bookseller-note-text">
